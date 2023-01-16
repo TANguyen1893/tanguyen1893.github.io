@@ -53,29 +53,34 @@
 /* Home */
 
 	#home {
-		background: url('../../assets/css/images/overlay.png'), url('../../images/fulls/iceland_vik.jpg');
-		background-size: 256px 256px, cover;
-		background-attachment: fixed, fixed;
-		background-position: top left, bottom center;
-		background-repeat: repeat, no-repeat;
+		background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("../../images/fulls/iceland_vik.jpg");
+		background-size: cover;
+		background-attachment: fixed;
+		background-position: bottom center;
+		background-repeat: no-repeat;
+		max-width: 100%;
 	}
 
 /* About Me */
 
 	#aboutMe {
-		background: url('../../assets/css/images/overlay.png'), url('../../images/one.jpg');
-		background-size: 256px 256px, cover;
-		background-attachment: fixed, fixed;
-		background-position: top left, center center;
+		background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("../../images/fulls/switzerland_kleine_2.jpg");
+		background-size: cover;
+		background-attachment: fixed;
+		background-position: bottom center;
+		background-repeat: no-repeat;
+		max-width: 100%;
 	}
 
 /* Interests */
 
 	#interests {
-		background: url('../../assets/css/images/overlay.png'), url('../../images/two.jpg');
-		background-size: 256px 256px, cover;
-		background-attachment: fixed, fixed;
-		background-position: top left, center center;
+		background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("../../images/fulls/london_arsenal.jpg");
+		background-size: cover;
+		background-attachment: fixed;
+		background-position: bottom center;
+		background-repeat: no-repeat;
+		max-width: 100%;
 	}
 
 /* Contact */
