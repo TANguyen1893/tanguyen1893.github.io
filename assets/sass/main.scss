@@ -56,7 +56,7 @@
 		background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("../../images/fulls/iceland_vik.jpg");
 		background-size: cover;
 		background-attachment: fixed;
-		background-position: bottom center;
+		background-position: 60%;
 		background-repeat: no-repeat;
 		max-width: 100%;
 	}
@@ -64,12 +64,18 @@
 /* About Me */
 
 	#aboutMe {
-		background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("../../images/fulls/switzerland_kleine_2.jpg");
+		background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("../../images/fulls/orford_trail.jpg");
 		background-size: cover;
 		background-attachment: fixed;
-		background-position: bottom center;
+		background-position: center;
 		background-repeat: no-repeat;
 		max-width: 100%;
+	}
+
+	#aboutMe #me {
+		padding-right: 75px;
+		max-width: 40%;
+		max-height: 40%;
 	}
 
 /* Interests */
