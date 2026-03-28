@@ -1,0 +1,75 @@
+<section id="contact" class="py-24 bg-slate-50">
+  <div class="max-w-xl mx-auto px-6">
+
+    <div data-reveal="from-bottom" class="text-center mb-12">
+      <p class="text-teal-600 text-xs font-semibold tracking-[0.3em] uppercase mb-4">Get in Touch</p>
+      <h2 class="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Say Hello.</h2>
+      <p class="text-slate-500 text-sm">
+        Or email me directly at&nbsp;
+        <a
+          href="mailto:contact@tuan-anhnguyen.com"
+          class="text-teal-600 hover:text-teal-700 font-medium underline underline-offset-2 transition-colors"
+        >
+          contact@tuan&#8209;anhnguyen.com
+        </a>
+      </p>
+    </div>
+
+    <div
+      data-reveal="from-bottom"
+      style="transition-delay: 0.1s"
+      class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 md:p-10"
+    >
+      <form method="post" action="https://formspree.io/f/mayznwgp" class="space-y-5">
+        <div class="grid sm:grid-cols-2 gap-5">
+          <div>
+            <label for="name" class="block text-xs font-semibold text-slate-600 uppercase tracking-wide mb-2">
+              Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              placeholder="Your name"
+              class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all duration-200"
+            />
+          </div>
+          <div>
+            <label for="email" class="block text-xs font-semibold text-slate-600 uppercase tracking-wide mb-2">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              placeholder="you@example.com"
+              class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all duration-200"
+            />
+          </div>
+        </div>
+        <div>
+          <label for="message" class="block text-xs font-semibold text-slate-600 uppercase tracking-wide mb-2">
+            Message
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            required
+            rows="5"
+            placeholder="What's on your mind?"
+            class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all duration-200 resize-none"
+          ></textarea>
+        </div>
+        <button
+          type="submit"
+          class="w-full py-3.5 px-6 bg-teal-500 hover:bg-teal-600 active:bg-teal-700 text-white font-semibold rounded-xl transition-colors duration-200 text-sm tracking-wide"
+        >
+          Send Message
+        </button>
+      </form>
+    </div>
+
+  </div>
+</section>

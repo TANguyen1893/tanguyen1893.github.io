@@ -1,0 +1,102 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+const {
+  title = 'Tuan-Anh Nguyen',
+  description = 'Software developer based in Montréal. Building distributed systems, travelling the world, and supporting Arsenal FC.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="title" content="Tuan-Anh Nguyen — Software Developer & Traveller" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Tuan-Anh Nguyen" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="canonical" href="https://tuan-anhnguyen.com/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..900;1,14..32,300..900&display=swap"
+      rel="stylesheet"
+    />
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TPXVMVQNG5"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-TPXVMVQNG5');
+    </script>
+  </head>
+  <body>
+    <slot />
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', () => {
+        const io = new IntersectionObserver(
+          (entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('in-view'); }),
+          { threshold: 0.1 }
+        );
+        document.querySelectorAll('[data-animate]').forEach((el) => io.observe(el));
+      });
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:         #0c0c0c;
+    --surface:    #141414;
+    --border:     #222;
+    --text:       #ededed;
+    --muted:      #5a5a5a;
+    --soft:       #999;
+    --accent:     #f0c040;
+    --accent-dim: rgba(240, 192, 64, 0.08);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* Scroll-triggered reveal */
+  [data-animate] {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  [data-animate="left"]  { transform: translateX(-24px); }
+  [data-animate="right"] { transform: translateX(24px); }
+  [data-animate].in-view { opacity: 1; transform: none; }
+
+  /* Stagger utility */
+  [data-delay="1"] { transition-delay: 0.08s; }
+  [data-delay="2"] { transition-delay: 0.16s; }
+  [data-delay="3"] { transition-delay: 0.24s; }
+  [data-delay="4"] { transition-delay: 0.32s; }
+  [data-delay="5"] { transition-delay: 0.40s; }
+
+  /* Hide scrollbar */
+  .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+
+  /* PhotoSwipe */
+  .pswp { --pswp-bg: #0c0c0c; }
+</style>

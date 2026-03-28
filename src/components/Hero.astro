@@ -1,0 +1,65 @@
+<section id="home" style="min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:6rem 1.5rem 3rem;position:relative;overflow:hidden;">
+
+  <!-- Ambient glow -->
+  <div style="position:absolute;top:20%;left:-5%;width:50rem;height:50rem;background:radial-gradient(circle,color-mix(in srgb, var(--accent) 4%, transparent) 0%,transparent 65%);pointer-events:none;"></div>
+
+  <div style="max-width:72rem;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr;gap:3rem;align-items:center;" id="hero-grid">
+
+    <!-- Left: text -->
+    <div style="display:flex;flex-direction:column;gap:2.25rem;">
+
+      <div data-animate>
+        <h1 style="font-size:clamp(3.5rem,9vw,8rem);font-weight:900;line-height:0.93;letter-spacing:-0.03em;color:var(--text);">
+          Tuan&#8209;Anh<br />
+          <span style="color:var(--accent);">Nguyen</span>
+        </h1>
+      </div>
+
+      <div data-animate data-delay="1" style="max-width:32rem;">
+        <p style="font-size:1.125rem;color:var(--soft);line-height:1.7;font-weight:400;">
+          Software developer at&nbsp;AppDirect, based in&nbsp;Montréal.
+          Avid traveller, lifelong Arsenal&nbsp;FC fan, and weekend cyclist.
+        </p>
+      </div>
+
+
+    </div>
+
+    <!-- Right: photo (desktop only) -->
+    <div data-animate="right" id="hero-photo" style="display:none;position:relative;border-radius:1.25rem;overflow:hidden;height:clamp(360px,52vh,520px);">
+      <img
+        src="/images/fulls/me.jpg"
+        alt="Tuan-Anh Nguyen"
+        style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;"
+      />
+      <!-- Gradient melt into page bg -->
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 0%,transparent 45%);"></div>
+      <!-- Subtle left-edge fade to blend with text side -->
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,var(--bg) 0%,transparent 25%);"></div>
+    </div>
+
+  </div>
+
+  <!-- Scroll cue -->
+  <div style="position:absolute;bottom:2rem;right:1.5rem;display:flex;flex-direction:column;align-items:center;gap:0.4rem;color:var(--muted);">
+    <span style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;writing-mode:vertical-rl;">Scroll</span>
+    <div style="width:1px;height:3rem;background:linear-gradient(to bottom,var(--muted),transparent);"></div>
+  </div>
+
+</section>
+
+<script is:inline>
+  function heroLayout() {
+    const grid  = document.getElementById('hero-grid');
+    const photo = document.getElementById('hero-photo');
+    if (window.innerWidth >= 768) {
+      grid.style.gridTemplateColumns = '1fr 1fr';
+      photo.style.display = 'block';
+    } else {
+      grid.style.gridTemplateColumns = '1fr';
+      photo.style.display = 'none';
+    }
+  }
+  heroLayout();
+  window.addEventListener('resize', heroLayout);
+</script>
