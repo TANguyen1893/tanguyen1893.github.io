@@ -1,12 +1,23 @@
-<section id="home" style="min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:6rem 1.5rem 3rem;position:relative;overflow:hidden;">
+---
+const facts = [
+  { label: 'Role',       value: 'Senior Software Developer at AppDirect' },
+  { label: 'Location',   value: 'Montréal, QC' },
+  { label: 'Stack',      value: 'Java · TypeScript · Node.js' },
+  { label: 'Supporting', value: 'Arsenal FC · Toronto Raptors' },
+  { label: 'Interests',  value: 'Biking · Gardening · Tutoring' },
+  { label: 'Tinkering',  value: 'Home automation' },
+];
+---
+
+<section id="home" style="padding:8rem 1.5rem 6rem;position:relative;overflow:hidden;">
 
   <!-- Ambient glow -->
-  <div style="position:absolute;top:20%;left:-5%;width:50rem;height:50rem;background:radial-gradient(circle,color-mix(in srgb, var(--accent) 4%, transparent) 0%,transparent 65%);pointer-events:none;"></div>
+  <div style="position:absolute;top:10%;left:-5%;width:50rem;height:50rem;background:radial-gradient(circle,color-mix(in srgb, var(--accent) 4%, transparent) 0%,transparent 65%);pointer-events:none;"></div>
 
-  <div style="max-width:72rem;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr;gap:3rem;align-items:center;" id="hero-grid">
+  <div style="max-width:72rem;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr;gap:4rem;align-items:start;" id="hero-grid">
 
-    <!-- Left: text -->
-    <div style="display:flex;flex-direction:column;gap:2.25rem;">
+    <!-- Left: all content -->
+    <div style="display:flex;flex-direction:column;gap:2.5rem;">
 
       <div data-animate>
         <h1 style="font-size:clamp(3.5rem,9vw,8rem);font-weight:900;line-height:0.93;letter-spacing:-0.03em;color:var(--text);">
@@ -15,35 +26,57 @@
         </h1>
       </div>
 
-      <div data-animate data-delay="1" style="max-width:32rem;">
+      <div data-animate data-delay="1" style="max-width:36rem;">
         <p style="font-size:1.125rem;color:var(--soft);line-height:1.7;font-weight:400;">
           Software developer at&nbsp;AppDirect, based in&nbsp;Montréal.
           Curious traveller, lifelong Arsenal&nbsp;FC fan, and weekend cyclist.
         </p>
       </div>
 
+      <!-- Narrative -->
+      <div data-animate data-delay="2" style="display:flex;flex-direction:column;gap:1.25rem;color:var(--soft);font-size:1rem;line-height:1.75;max-width:36rem;">
+        <p>
+          I'm a software developer at AppDirect in Montréal, working with
+          Java, TypeScript, and Node.js. Outside of work I like to tinker —
+          lately that means home automation projects, wiring up smart home devices and
+          building little automations that make daily life slightly more interesting.
+        </p>
+        <p>
+          I've been an Arsenal supporter since around 2000, right when Thierry Henry
+          arrived and changed everything. I finally made it to the Emirates in September
+          2019 to see them beat Aston Villa 3–2 with a last-minute Aubameyang free-kick.
+          Worth every mile.
+        </p>
+        <p>
+          I grew up playing basketball, which is how I became a lifelong Raptors fan.
+          These days my free time goes to cycling around Montréal, gardening, cooking,
+          and occasionally tutoring.
+        </p>
+      </div>
+
+      <!-- Quick facts -->
+      <dl data-animate data-delay="3" style="display:flex;flex-direction:column;gap:0;max-width:36rem;">
+        {facts.map((f, i) => (
+          <div style={`display:flex;align-items:baseline;gap:1rem;padding:0.65rem 0;border-bottom:1px solid var(--border);${i === 0 ? 'border-top:1px solid var(--border);' : ''}`}>
+            <dt style="flex-shrink:0;width:6rem;font-size:0.65rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);">{f.label}</dt>
+            <dd style="font-size:0.9rem;color:var(--soft);">{f.value}</dd>
+          </div>
+        ))}
+      </dl>
 
     </div>
 
-    <!-- Right: photo (desktop only) -->
-    <div data-animate="right" id="hero-photo" style="display:none;position:relative;border-radius:1.25rem;overflow:hidden;height:clamp(360px,52vh,520px);">
+    <!-- Right: sticky photo (desktop only) -->
+    <div data-animate="right" id="hero-photo" style="display:none;position:sticky;top:6rem;border-radius:1.25rem;overflow:hidden;height:clamp(400px,60vh,580px);">
       <img
         src="https://res.cloudinary.com/dl4svce1s/image/upload/f_auto,q_auto/site/fulls/me.jpg"
         alt="Tuan-Anh Nguyen"
-        style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;"
+        style="width:100%;height:100%;object-fit:cover;object-position:center top;"
       />
-      <!-- Gradient melt into page bg -->
-      <div style="position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 0%,transparent 45%);"></div>
-      <!-- Subtle left-edge fade to blend with text side -->
-      <div style="position:absolute;inset:0;background:linear-gradient(to right,var(--bg) 0%,transparent 25%);"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 0%,transparent 40%);"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,var(--bg) 0%,transparent 20%);"></div>
     </div>
 
-  </div>
-
-  <!-- Scroll cue -->
-  <div style="position:absolute;bottom:2rem;right:1.5rem;display:flex;flex-direction:column;align-items:center;gap:0.4rem;color:var(--muted);">
-    <span style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;writing-mode:vertical-rl;">Scroll</span>
-    <div style="width:1px;height:3rem;background:linear-gradient(to bottom,var(--muted),transparent);"></div>
   </div>
 
 </section>
@@ -53,7 +86,7 @@
     const grid  = document.getElementById('hero-grid');
     const photo = document.getElementById('hero-photo');
     if (window.innerWidth >= 768) {
-      grid.style.gridTemplateColumns = '1fr 1fr';
+      grid.style.gridTemplateColumns = '1.2fr 1fr';
       photo.style.display = 'block';
     } else {
       grid.style.gridTemplateColumns = '1fr';
