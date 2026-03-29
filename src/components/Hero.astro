@@ -10,11 +10,22 @@ const facts = [
 
 const CDN = 'https://res.cloudinary.com/dl4svce1s/image/upload';
 const heroBg = `${CDN}/w_1600,c_fill,g_auto,f_auto,q_auto/site/fulls/orford_trail.jpg`;
+const portrait = 'https://res.cloudinary.com/dl4svce1s/image/upload/f_auto,q_auto/site/fulls/me.jpg';
 ---
+
+<style>
+  #hero-photo-mobile { display: block; }
+  #hero-photo        { display: none;  }
+
+  @media (min-width: 768px) {
+    #hero-photo-mobile { display: none;  }
+    #hero-photo        { display: block; }
+  }
+</style>
 
 <section id="home" style="padding:8rem 1.5rem 6rem;position:relative;overflow:hidden;min-height:100svh;display:flex;align-items:center;">
 
-  <!-- ── Iceland background ──────────────────────────────────── -->
+  <!-- ── Background ──────────────────────────────────────────── -->
   <img
     src={heroBg}
     alt=""
@@ -52,8 +63,23 @@ const heroBg = `${CDN}/w_1600,c_fill,g_auto,f_auto,q_auto/site/fulls/orford_trai
         </p>
       </div>
 
+      <!-- Mobile portrait — shown between subtitle and bio on small screens -->
+      <div id="hero-photo-mobile" data-animate data-delay="2"
+        style="position:relative;width:100%;height:clamp(280px,75vw,360px);border-radius:1.25rem;overflow:hidden;">
+        <img
+          src={portrait}
+          alt="Tuan-Anh Nguyen"
+          style="width:100%;height:100%;object-fit:cover;object-position:center 15%;"
+        />
+        <!-- bottom fade blends into page bg -->
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 0%,transparent 50%);"></div>
+        <!-- subtle side fades so it doesn't look hard-cropped -->
+        <div style="position:absolute;inset:0;background:linear-gradient(to right,color-mix(in srgb,var(--bg) 40%,transparent) 0%,transparent 20%);"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(to left,color-mix(in srgb,var(--bg) 40%,transparent) 0%,transparent 20%);"></div>
+      </div>
+
       <!-- Narrative -->
-      <div data-animate data-delay="2" style="display:flex;flex-direction:column;gap:1.25rem;color:var(--soft);font-size:1rem;line-height:1.75;max-width:36rem;">
+      <div data-animate data-delay="3" style="display:flex;flex-direction:column;gap:1.25rem;color:var(--soft);font-size:1rem;line-height:1.75;max-width:36rem;">
         <p>
           I'm a software developer at AppDirect in Montréal, working with
           Java, TypeScript, and Node.js. Outside of work I like to tinker —
@@ -74,7 +100,7 @@ const heroBg = `${CDN}/w_1600,c_fill,g_auto,f_auto,q_auto/site/fulls/orford_trai
       </div>
 
       <!-- Quick facts -->
-      <dl data-animate data-delay="3" style="display:flex;flex-direction:column;gap:0;max-width:36rem;">
+      <dl data-animate data-delay="4" style="display:flex;flex-direction:column;gap:0;max-width:36rem;">
         {facts.map((f, i) => (
           <div style={`display:flex;align-items:baseline;gap:1rem;padding:0.65rem 0;border-bottom:1px solid var(--border);${i === 0 ? 'border-top:1px solid var(--border);' : ''}`}>
             <dt style="flex-shrink:0;width:6rem;font-size:0.65rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);">{f.label}</dt>
@@ -86,9 +112,9 @@ const heroBg = `${CDN}/w_1600,c_fill,g_auto,f_auto,q_auto/site/fulls/orford_trai
     </div>
 
     <!-- Right: sticky photo (desktop only) -->
-    <div data-animate="right" id="hero-photo" style="display:none;position:sticky;top:6rem;border-radius:1.25rem;overflow:hidden;height:clamp(400px,60vh,580px);">
+    <div data-animate="right" id="hero-photo" style="position:sticky;top:6rem;border-radius:1.25rem;overflow:hidden;height:clamp(400px,60vh,580px);">
       <img
-        src="https://res.cloudinary.com/dl4svce1s/image/upload/f_auto,q_auto/site/fulls/me.jpg"
+        src={portrait}
         alt="Tuan-Anh Nguyen"
         style="width:100%;height:100%;object-fit:cover;object-position:center top;"
       />
@@ -102,14 +128,11 @@ const heroBg = `${CDN}/w_1600,c_fill,g_auto,f_auto,q_auto/site/fulls/orford_trai
 
 <script is:inline>
   function heroLayout() {
-    const grid  = document.getElementById('hero-grid');
-    const photo = document.getElementById('hero-photo');
+    const grid = document.getElementById('hero-grid');
     if (window.innerWidth >= 768) {
       grid.style.gridTemplateColumns = '1.2fr 1fr';
-      photo.style.display = 'block';
     } else {
       grid.style.gridTemplateColumns = '1fr';
-      photo.style.display = 'none';
     }
   }
   heroLayout();
