@@ -36,7 +36,21 @@ const {
     </script>
   </head>
   <body>
-    <slot />
+    <!-- ── Dynamic background ─────────────────────────────────── -->
+    <div class="bg-canvas" aria-hidden="true">
+      <!-- Ambient colour orbs — driven by --accent, theme-aware -->
+      <div class="bg-orb bg-orb-1"></div>
+      <div class="bg-orb bg-orb-2"></div>
+      <div class="bg-orb bg-orb-3"></div>
+      <!-- Film-grain noise overlay -->
+      <div class="bg-noise"></div>
+    </div>
+
+    <!-- ── Page content ───────────────────────────────────────── -->
+    <div class="page-content">
+      <slot />
+    </div>
+
     <script is:inline>
       document.addEventListener('DOMContentLoaded', () => {
         const io = new IntersectionObserver(
@@ -52,7 +66,9 @@ const {
 <style is:global>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
+  /* ── Themes ─────────────────────────────────────────────────── */
+  :root,
+  [data-theme="amber"] {
     --bg:         #0c0c0c;
     --surface:    #141414;
     --border:     #222;
@@ -63,7 +79,78 @@ const {
     --accent-dim: rgba(240, 192, 64, 0.08);
   }
 
-  html { scroll-behavior: smooth; }
+  [data-theme="nordic"] {
+    --bg:         #09101a;
+    --surface:    #111d2b;
+    --border:     #1c2d3e;
+    --text:       #e6f0f8;
+    --muted:      #3a526a;
+    --soft:       #7aa3bf;
+    --accent:     #4ecdc4;
+    --accent-dim: rgba(78, 205, 196, 0.08);
+  }
+
+  [data-theme="emerald"] {
+    --bg:         #07100a;
+    --surface:    #0e1a11;
+    --border:     #182a1c;
+    --text:       #e6f0e8;
+    --muted:      #385042;
+    --soft:       #7aa880;
+    --accent:     #4ade80;
+    --accent-dim: rgba(74, 222, 128, 0.08);
+  }
+
+  [data-theme="arsenal"] {
+    --bg:         #0d0808;
+    --surface:    #171010;
+    --border:     #281818;
+    --text:       #f2eded;
+    --muted:      #5c3535;
+    --soft:       #b07878;
+    --accent:     #e84545;
+    --accent-dim: rgba(232, 69, 69, 0.08);
+  }
+
+  [data-theme="ocean"] {
+    --bg:         #050a14;
+    --surface:    #0b1222;
+    --border:     #141f36;
+    --text:       #ddeaff;
+    --muted:      #283d64;
+    --soft:       #5c82bf;
+    --accent:     #4f8eff;
+    --accent-dim: rgba(79, 142, 255, 0.08);
+  }
+
+  [data-theme="dusk"] {
+    --bg:         #0e0a07;
+    --surface:    #1a130e;
+    --border:     #2a1e16;
+    --text:       #f0ebe4;
+    --muted:      #5a3d28;
+    --soft:       #b08060;
+    --accent:     #f97316;
+    --accent-dim: rgba(249, 115, 22, 0.08);
+  }
+
+  [data-theme="violet"] {
+    --bg:         #08070f;
+    --surface:    #11101c;
+    --border:     #1d1a30;
+    --text:       #edeaf8;
+    --muted:      #3d3560;
+    --soft:       #8878c0;
+    --accent:     #a78bfa;
+    --accent-dim: rgba(167, 139, 250, 0.08);
+  }
+
+  /* ── Base ────────────────────────────────────────────────────── */
+  html {
+    scroll-behavior: smooth;
+    /* Smooth background transition on theme switch */
+    transition: background-color 0.5s ease;
+  }
 
   body {
     background: var(--bg);
@@ -73,9 +160,118 @@ const {
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
     line-height: 1.6;
+    transition: background-color 0.5s ease, color 0.4s ease;
   }
 
-  /* Scroll-triggered reveal */
+  /* Page content sits above bg-canvas */
+  .page-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── Dynamic background ──────────────────────────────────────── */
+  .bg-canvas {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  /*
+   * Ambient orbs — large, heavily blurred radial gradients that drift
+   * slowly across the page. They use color-mix() against --accent so
+   * they shift colour automatically when the user changes theme.
+   *
+   * Intensity guide:
+   *   orb-1 (top-left)    — 16% accent, most prominent, anchors the eye
+   *   orb-2 (bottom-right)— 10% accent, counterbalances orb-1
+   *   orb-3 (mid-centre)  —  6% accent, adds mid-page depth
+   */
+  .bg-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(110px);
+    will-change: transform;
+    transition: background 0.5s ease;
+  }
+
+  .bg-orb-1 {
+    width:  clamp(380px, 52vw, 780px);
+    height: clamp(380px, 52vw, 780px);
+    top:  -18%;
+    left: -8%;
+    background: radial-gradient(circle at center,
+      color-mix(in srgb, var(--accent) 16%, transparent) 0%,
+      transparent 70%);
+    animation: orb-drift-1 48s ease-in-out infinite;
+  }
+
+  .bg-orb-2 {
+    width:  clamp(300px, 44vw, 680px);
+    height: clamp(300px, 44vw, 680px);
+    bottom: 2%;
+    right: -6%;
+    background: radial-gradient(circle at center,
+      color-mix(in srgb, var(--accent) 10%, transparent) 0%,
+      transparent 70%);
+    animation: orb-drift-2 58s ease-in-out infinite;
+  }
+
+  .bg-orb-3 {
+    width:  clamp(240px, 36vw, 520px);
+    height: clamp(240px, 36vw, 520px);
+    top:  42%;
+    left: 32%;
+    background: radial-gradient(circle at center,
+      color-mix(in srgb, var(--accent) 6%, transparent) 0%,
+      transparent 70%);
+    animation: orb-drift-3 68s ease-in-out infinite;
+  }
+
+  @keyframes orb-drift-1 {
+    0%,  100% { transform: translate(  0%,   0%) scale(1.00); }
+    25%        { transform: translate(  3%,   7%) scale(1.04); }
+    50%        { transform: translate(  1%,   3%) scale(0.97); }
+    75%        { transform: translate( -3%,   5%) scale(1.02); }
+  }
+
+  @keyframes orb-drift-2 {
+    0%,  100% { transform: translate(  0%,   0%) scale(1.00); }
+    30%        { transform: translate( -5%,  -4%) scale(1.06); }
+    60%        { transform: translate(  3%,  -7%) scale(0.95); }
+    80%        { transform: translate( -2%,  -2%) scale(1.03); }
+  }
+
+  @keyframes orb-drift-3 {
+    0%,  100% { transform: translate(  0%,   0%) scale(1.00); }
+    40%        { transform: translate( -7%,   5%) scale(1.09); }
+    70%        { transform: translate(  4%,  -4%) scale(0.93); }
+  }
+
+  /* Respect user motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .bg-orb { animation: none; }
+  }
+
+  /*
+   * Film-grain noise overlay — tiny SVG fractalNoise tiled at 200px.
+   * At 4% opacity with overlay blend mode it adds tactile texture to the
+   * flat dark background without being visible to casual inspection.
+   * This is the same trick used by Vercel, Linear, and Figma.
+   */
+  .bg-noise {
+    position: absolute;
+    inset: 0;
+    /* prettier-ignore */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    opacity: 0.04;
+    mix-blend-mode: overlay;
+  }
+
+  /* ── Scroll-triggered reveal ─────────────────────────────────── */
   [data-animate] {
     opacity: 0;
     transform: translateY(20px);
@@ -98,5 +294,5 @@ const {
   .no-scrollbar::-webkit-scrollbar { display: none; }
 
   /* PhotoSwipe */
-  .pswp { --pswp-bg: #0c0c0c; }
+  .pswp { --pswp-bg: var(--bg); }
 </style>
