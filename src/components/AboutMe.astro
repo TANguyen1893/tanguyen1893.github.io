@@ -1,0 +1,69 @@
+---
+const facts = [
+  { label: 'Role',        value: 'Senior Software Developer at AppDirect' },
+  { label: 'Location',    value: 'Montréal, QC' },
+  { label: 'Stack',       value: 'Java · TypeScript · Node.js' },
+  { label: 'Supporting',  value: 'Arsenal FC · Toronto Raptors' },
+  { label: 'Interests',   value: 'Biking · Gardening · Tutoring' },
+  { label: 'Tinkering',   value: 'Home automation' },
+];
+---
+
+<section id="about" style="padding:7rem 1.5rem;border-top:1px solid var(--border);">
+  <div style="max-width:72rem;margin:0 auto;">
+
+    <p data-animate style="font-size:0.7rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:var(--accent);margin-bottom:4rem;">
+      About
+    </p>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:4rem;" id="about-grid">
+
+      <!-- Narrative -->
+      <div data-animate="left" style="max-width:36rem;">
+        <h2 style="font-size:clamp(2rem,5vw,3rem);font-weight:800;line-height:1.1;letter-spacing:-0.02em;color:var(--text);margin-bottom:2rem;">
+          Building things,<br />exploring places.
+        </h2>
+        <div style="display:flex;flex-direction:column;gap:1.25rem;color:var(--soft);font-size:1rem;line-height:1.75;">
+          <p>
+            I'm a software developer at AppDirect in Montréal, working with
+            Java, TypeScript, and Node.js. Outside of work I like to tinker —
+            lately that means home automation projects, wiring up smart home devices and
+            building little automations that make daily life slightly more interesting.
+          </p>
+          <p>
+            I've been an Arsenal supporter since around 2000, right when Thierry Henry
+            arrived and changed everything. I finally made it to the Emirates in September
+            2019 to see them beat Aston Villa 3–2 with a last-minute Aubameyang free-kick.
+            Worth every mile.
+          </p>
+          <p>
+            I grew up playing basketball, which is how I became a lifelong Raptors fan.
+            These days my free time goes to cycling around Montréal, gardening, cooking,
+            and occasionally tutoring.
+          </p>
+        </div>
+      </div>
+
+      <!-- Quick facts -->
+      <div data-animate="right">
+        <dl style="display:flex;flex-direction:column;gap:0;">
+          {facts.map((f, i) => (
+            <div style={`display:flex;flex-direction:column;gap:0.2rem;padding:1rem 0;border-bottom:1px solid var(--border);${i === 0 ? 'border-top:1px solid var(--border);' : ''}`}>
+              <dt style="font-size:0.7rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);">{f.label}</dt>
+              <dd style="font-size:0.9375rem;color:var(--soft);">{f.value}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  @media (min-width: 768px) {
+    #about-grid {
+      grid-template-columns: 1.4fr 1fr !important;
+    }
+  }
+</style>

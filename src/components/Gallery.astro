@@ -1,0 +1,129 @@
+---
+const CDN = 'https://res.cloudinary.com/dl4svce1s/image/upload';
+const thumb = (name: string) => `${CDN}/w_352,h_240,c_fill,f_auto,q_auto/site/fulls/${name}.jpg`;
+const full  = (name: string) => `${CDN}/f_auto,q_auto/site/fulls/${name}.jpg`;
+
+const photos = [
+  { thumb: thumb('iceland_skogafoss'),   full: full('iceland_skogafoss'),   title: 'Skógafoss',        location: 'Iceland' },
+  { thumb: thumb('norway_naeroyfjord'),  full: full('norway_naeroyfjord'),  title: 'Nærøyfjord',       location: 'Norway' },
+  { thumb: thumb('switzerland_kleine'),  full: full('switzerland_kleine'),  title: 'Kleine Scheidegg', location: 'Switzerland' },
+  { thumb: thumb('barcelona_casa_mila'), full: full('barcelona_casa_mila'), title: 'Casa Milà',        location: 'Barcelona' },
+  { thumb: thumb('portugal_sintra'),     full: full('portugal_sintra'),     title: 'Sintra',           location: 'Portugal' },
+  { thumb: thumb('portugal_porto'),      full: full('portugal_porto'),      title: 'Porto',            location: 'Portugal' },
+  { thumb: thumb('germany_oktoberfest'), full: full('germany_oktoberfest'), title: 'Oktoberfest',      location: 'Munich' },
+  { thumb: thumb('emirates_stadium'),    full: full('emirates_stadium'),    title: 'Emirates Stadium', location: 'London' },
+  { thumb: thumb('mont_orford'),         full: full('mont_orford'),         title: 'Mont Chauve',      location: 'Québec' },
+  { thumb: thumb('sutton_hike'),         full: full('sutton_hike'),         title: 'Sutton',           location: 'Québec' },
+];
+---
+
+<section id="travels" style="padding:7rem 0;border-top:1px solid var(--border);overflow:hidden;">
+
+  <!-- Header (contained) -->
+  <div style="max-width:72rem;margin:0 auto;padding:0 1.5rem;margin-bottom:3rem;">
+    <div data-animate style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+      <div>
+        <p style="font-size:0.7rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:var(--accent);margin-bottom:0.75rem;">
+          Travels
+        </p>
+        <h2 style="font-size:clamp(2rem,5vw,3rem);font-weight:800;line-height:1.1;letter-spacing:-0.02em;color:var(--text);">
+          Places I've been.
+        </h2>
+      </div>
+      <p style="font-size:0.875rem;color:var(--muted);max-width:22rem;line-height:1.65;">
+        Iceland is my favourite — the landscape looks like it belongs on another planet.
+        I'll be going back.
+      </p>
+    </div>
+  </div>
+
+  <!-- Horizontal filmstrip -->
+  <div
+    id="pswp-gallery"
+    class="no-scrollbar"
+    style="display:flex;gap:0.875rem;overflow-x:auto;scroll-snap-type:x mandatory;padding:0.25rem 1.5rem 1.5rem;cursor:grab;-webkit-user-select:none;user-select:none;"
+  >
+    {photos.map((photo, i) => (
+      <a
+        href={photo.full}
+        target="_blank"
+        aria-label={`${photo.title}, ${photo.location}`}
+        data-animate
+        data-delay={String((i % 5) + 1)}
+        style="flex-shrink:0;scroll-snap-align:start;display:block;position:relative;width:min(72vw,22rem);height:15rem;border-radius:1rem;overflow:hidden;background:var(--surface);text-decoration:none;"
+      >
+        <img
+          src={photo.thumb}
+          alt={`${photo.title}, ${photo.location}`}
+          loading="lazy"
+          style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 0.6s cubic-bezier(0.16,1,0.3,1);"
+          class="gallery-img"
+        />
+        <!-- Persistent bottom gradient with location -->
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(12,12,12,0.75) 0%,transparent 55%);display:flex;flex-direction:column;justify-content:flex-end;padding:1rem 1.1rem;">
+          <span style="font-size:0.7rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);opacity:0.8;">{photo.location}</span>
+          <span style="font-size:0.9375rem;font-weight:600;color:var(--text);margin-top:0.15rem;">{photo.title}</span>
+        </div>
+      </a>
+    ))}
+  </div>
+
+  <!-- Drag hint -->
+  <div data-animate style="max-width:72rem;margin:1.25rem auto 0;padding:0 1.5rem;">
+    <p style="font-size:0.75rem;color:var(--muted);display:flex;align-items:center;gap:0.4rem;">
+      <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="opacity:0.6;">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+      </svg>
+      Drag or scroll to explore
+      <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="opacity:0.6;">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+      </svg>
+    </p>
+  </div>
+
+</section>
+
+<script>
+  import PhotoSwipeLightbox from 'photoswipe/lightbox';
+  import 'photoswipe/style.css';
+
+  // Lightbox
+  const lightbox = new PhotoSwipeLightbox({
+    gallery: '#pswp-gallery',
+    children: 'a',
+    pswpModule: () => import('photoswipe'),
+    padding: { top: 40, bottom: 40, left: 20, right: 20 },
+  });
+  lightbox.init();
+
+  // Image hover scale
+  document.querySelectorAll('.gallery-img').forEach((img) => {
+    const card = img.parentElement;
+    card.addEventListener('mouseenter', () => { (img as HTMLElement).style.transform = 'scale(1.06)'; });
+    card.addEventListener('mouseleave', () => { (img as HTMLElement).style.transform = 'scale(1)'; });
+  });
+
+  // Click-drag to scroll
+  const strip = document.getElementById('pswp-gallery')!;
+  let isDragging = false, startX = 0, scrollLeft = 0, hasDragged = false;
+
+  strip.addEventListener('mousedown', (e) => {
+    isDragging = true; hasDragged = false;
+    startX = e.pageX - strip.offsetLeft;
+    scrollLeft = strip.scrollLeft;
+    strip.style.cursor = 'grabbing';
+  });
+  strip.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    const dist = e.pageX - strip.offsetLeft - startX;
+    if (Math.abs(dist) > 4) hasDragged = true;
+    strip.scrollLeft = scrollLeft - dist;
+  });
+  strip.addEventListener('mouseup', () => { isDragging = false; strip.style.cursor = 'grab'; });
+  strip.addEventListener('mouseleave', () => { isDragging = false; strip.style.cursor = 'grab'; });
+
+  // Prevent click from firing PhotoSwipe if user was dragging
+  strip.querySelectorAll('a').forEach((a) => {
+    a.addEventListener('click', (e) => { if (hasDragged) e.preventDefault(); });
+  });
+</script>
